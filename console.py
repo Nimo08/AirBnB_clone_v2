@@ -127,27 +127,23 @@ class HBNBCommand(cmd.Cmd):
             params = arg[1:]
             params_dict = {}
             for param in params:
-                key, value = param.split('=')
+                key, value = param.split('=', 1)
                 if value.startswith('"') and value.endswith('"'):
-                    try:
-                        str_value = value[1:-1].replace('\\"', '"')\
-                                  .replace('_', ' ')
-                        params_dict[key] = str_value
-                    except ValueError:
-                        print("Invalid parameter {}".format(param))
+                    if '"' in value and '_' in value:
+                        value = value[1:-1]
+                        value = value.replace('"', r'\"').replace('_', ' ')
                 elif '.' in value:
                     try:
-                        float_value = float(value)
-                        params_dict[key] = float_value
+                        value = float(value)
                     except ValueError:
                         print("Invalid parameter {}".format(param))
                 else:
                     try:
-                        int_value = int(value)
-                        params_dict[key] = int_value
+                        value = int(value)
                     except ValueError:
                         print("Invalid parameter {}".format(param))
-        new_instance = HBNBCommand.classes[cls_name](**params_dict)
+                params_dict[key] = value
+        new_instance = HBNBCommand.classes[cls_name]()
         print(new_instance.id)
         storage.save()
 
