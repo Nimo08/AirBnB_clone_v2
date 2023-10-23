@@ -63,6 +63,6 @@ class FileStorage:
         # to avoid changing the dict, make a copy of the keys
         # iterate over the copy instead
         else:
-            for key in list(FileStorage.__objects.keys()):
-                if obj == FileStorage.__objects[key]:
+            for key, value in list(FileStorage.__objects.items()):
+                if obj == value:
                     del FileStorage.__objects[key]
