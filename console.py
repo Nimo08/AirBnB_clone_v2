@@ -118,32 +118,27 @@ class HBNBCommand(cmd.Cmd):
         if not args:
             print("** class name missing **")
             return
-        arg = args.split()
-        cls_name = arg[0]
+        arg_list = args.split()
+        cls_name = arg_list[0]
         if cls_name not in HBNBCommand.classes:
             print("** class doesn't exist **")
             return
-        if arg:
-            params = arg[1:]
-            params_dict = {}
-            for param in params:
-                key, value = param.split('=', 1)
-                if value.startswith('"') and value.endswith('"'):
-                    if '"' in value and '_' in value:
-                        value = value[1:-1]
-                        value = value.replace('"', r'\"').replace('_', ' ')
-                elif '.' in value:
-                    try:
-                        value = float(value)
-                    except ValueError:
-                        print("Invalid parameter {}".format(param))
-                else:
-                    try:
-                        value = int(value)
-                    except ValueError:
-                        print("Invalid parameter {}".format(param))
-                params_dict[key] = value
-        new_instance = HBNBCommand.classes[cls_name]()
+        params = arg_list[1:]
+        params_dict = {}
+        for param in params:
+            key, value = param.split('=', 1)
+            if value.startswith('"') and value.endswith('"'):
+                value = value[1:-1]
+                value = value.replace('_', ' ')
+            elif '.' in value:
+                value = float(value)
+            else:
+                try:
+                    value = int(value)
+                except ValueError:
+                    print("Invalid parameter {}".format(value))
+            params_dict[key] = value
+        new_instance = HBNBCommand.classes[cls_name](**params_dict)
         print(new_instance.id)
         storage.save()
 
