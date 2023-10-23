@@ -58,6 +58,8 @@ class FileStorage:
 
     def delete(self, obj=None):
         """Delete obj from __objects"""
+        if obj is None:
+            return
         # to avoid changing the dict, make a copy of the keys
         # iterate over the copy instead
         for key in list(FileStorage.__objects.keys()):
