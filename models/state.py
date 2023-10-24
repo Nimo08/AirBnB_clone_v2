@@ -4,6 +4,8 @@ from models.base_model import BaseModel, Base
 from sqlalchemy import Column, Integer, String, ForeignKey
 from sqlalchemy.orm import relationship
 import os
+from dotenv import load_dotenv
+load_dotenv()
 
 
 class State(BaseModel, Base):
@@ -13,7 +15,7 @@ class State(BaseModel, Base):
 
     storage_type = os.getenv('HBNB_TYPE_STORAGE')
     if storage_type == 'db':
-        cities = relationship("City", back_populates="state",
+        cities = relationship('City', back_populates='state',
                               cascade="all, delete-orphan")
     else:
         @property

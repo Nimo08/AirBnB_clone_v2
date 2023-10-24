@@ -140,6 +140,7 @@ class HBNBCommand(cmd.Cmd):
             params_dict[key] = value
         new_instance = HBNBCommand.classes[cls_name](**params_dict)
         print(new_instance.id)
+        storage.new(new_instance)
         storage.save()
 
     def help_create(self):
@@ -222,8 +223,8 @@ class HBNBCommand(cmd.Cmd):
             if args not in HBNBCommand.classes:
                 print("** class doesn't exist **")
                 return
-            cls_model = HBNBCommand.classes[args]
-            objects = storage.all(cls_model)
+            cls_name = args
+            objects = storage.all(cls_name)
             for obj in objects.values():
                 print_list.append(str(obj))
         else:

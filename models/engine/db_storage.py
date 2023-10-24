@@ -9,7 +9,6 @@ from models.place import Place
 from models.review import Review
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
-from sqlalchemy.orm import class_mapper
 import os
 from dotenv import load_dotenv
 load_dotenv()
@@ -44,14 +43,19 @@ class DBStorage:
         if cls is None:
             classes = [User, State, City, Amenity, Place, Review]
         else:
-            classes = [cls]
+            classes = {"User": User, "State": State, "City": City,
+                       "Amenity": Amenity, "Place": Place, "Review": Review}
         result_dict = {}
-        for class_model in classes:
-            model_table = class_mapper(class_model).mapped_table
-            query = self.__session.query(model_table).all()
-            for obj in query:
-                key = f"{obj.__class__.__name__}.{obj.id}"
+        if cls in classes:
+            class_model = classes[cls]
+            table_name = class_model.__tablename__
+            query = self.__session.query(class_model)
+            print(f"SQL Query: {str(query)}")
+            for obj in query.all():
+                key = f"{table_name}.{obj.id}"
                 result_dict[key] = obj
+        else:
+            print(f"Class {cls} not found in the mapping.")
         return result_dict
 
     def new(self, obj):
