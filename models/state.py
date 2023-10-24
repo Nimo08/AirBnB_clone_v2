@@ -4,8 +4,6 @@ from models.base_model import BaseModel, Base
 from sqlalchemy import Column, Integer, String, ForeignKey
 from sqlalchemy.orm import relationship
 import os
-from dotenv import load_dotenv
-load_dotenv()
 
 
 class State(BaseModel, Base):
