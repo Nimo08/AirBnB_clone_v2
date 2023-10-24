@@ -16,4 +16,14 @@ class State(BaseModel, Base):
         cities = relationship("City", back_populates="state",
                               cascade="all, delete-orphan")
     else:
-        pass
+        @property
+        def cities(self):
+            """Getter attribute"""
+            from models.city import City
+            from models import storage
+            # get all City instances
+            res = []
+            for city in storage.all(City).values():
+                if city.state_id == self.id:
+                    res.append(city)
+            return res

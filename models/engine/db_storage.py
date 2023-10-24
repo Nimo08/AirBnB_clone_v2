@@ -50,7 +50,7 @@ class DBStorage:
             model_table = class_mapper(class_model).mapped_table
             query = self.__session.query(model_table).all()
             for obj in query:
-                key = f"{class_model.__name__}.{obj.id}"
+                key = f"{obj.__class__.__name__}.{obj.id}"
                 result_dict[key] = obj
         return result_dict
 
