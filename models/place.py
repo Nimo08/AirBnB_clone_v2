@@ -3,6 +3,7 @@
 from models.base_model import BaseModel, Base
 from sqlalchemy import Column, Integer, String, Float, ForeignKey
 from sqlalchemy.orm import relationship
+import os
 
 
 class Place(BaseModel, Base):
@@ -22,3 +23,19 @@ class Place(BaseModel, Base):
 
     user = relationship('User', back_populates='places')
     cities = relationship('City', back_populates='places')
+
+    storage_type = os.getenv('HBNB_TYPE_STORAGE')
+    if storage_type == 'db':
+        reviews = relationship('Review', back_populates='place',
+                               cascade="all, delete-orphan")
+    else:
+        @property
+        def reviews(self):
+            """Getter attribute"""
+            from models.place import Place
+            from models import storage
+            review_list = []
+            for review in storage.all(Place).values():
+                if review.place_id == self.id:
+                    review_list.append(review)
+            return review_list
