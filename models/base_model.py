@@ -53,8 +53,9 @@ class BaseModel:
                           (str(type(self)).split('.')[-1]).split('\'')[0]})
         dictionary['created_at'] = self.created_at.isoformat()
         dictionary['updated_at'] = self.updated_at.isoformat()
-        if '_sa_instance_state' in dictionary:
-            del dictionary['_sa_instance_state']
+        for keys in list(dictionary.keys()):
+            if key == '_sa_instance_state':
+                dictionary.pop(key)
         return dictionary
 
     def delete(self):

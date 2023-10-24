@@ -50,7 +50,6 @@ class DBStorage:
             class_model = classes[cls]
             table_name = class_model.__tablename__
             query = self.__session.query(class_model)
-            print(f"SQL Query: {str(query)}")
             for obj in query.all():
                 key = f"{table_name}.{obj.id}"
                 result_dict[key] = obj
