@@ -54,7 +54,6 @@ def deploy():
     Return the return value of do_deploy
     """
     new_path = do_pack()
-    if new_path is None:
+    if not new_path:
         return False
-    res = do_deploy(new_path)
-    return res
+    return do_deploy(new_path)
