@@ -53,9 +53,9 @@ def deploy():
     """
     Return the return value of do_deploy
     """
-    archive_path = do_pack()
-    if not archive_path:
+    new_path = do_pack()
+    if not new_path:
         return False
-    if do_deploy(archive_path):
+    if do_deploy(new_path):
         return True
     return False
