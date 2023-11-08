@@ -5,7 +5,6 @@ then
 	apt-get update
 	apt-get install -y nginx
 fi
-mkdir -p /data/web_static/
 mkdir -p /data/web_static/releases/test/
 mkdir -p /data/web_static/shared/
 echo "<html>
