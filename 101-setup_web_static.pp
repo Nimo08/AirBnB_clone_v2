@@ -24,6 +24,17 @@ file { '/data/web_static/releases/test/':
   ensure => 'directory',
 }
 
+file { '/data/web_static/releases/test/index.html':
+  ensure  => 'present',
+  content => '<html>
+  <head>
+  </head>
+  <body>
+    Holberton School
+  </body>
+</html>',
+}
+
 file { '/data/web_static/current':
   ensure => 'link',
   target => '/data/web_static/releases/test'
