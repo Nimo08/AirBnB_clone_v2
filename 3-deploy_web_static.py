@@ -53,8 +53,7 @@ def deploy():
     """
     Return the return value of do_deploy
     """
-    try:
-        new_path = do_pack()
-        return do_deploy(new_path)
-    except Exception as e:
+    new_path = do_pack()
+    if exists(new_path) is False:
         return False
+    return do_deploy(new_path)
