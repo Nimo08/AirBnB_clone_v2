@@ -16,11 +16,11 @@ file { '/data/web_static/releases/':
   ensure => 'directory',
 }
 
-file { '/data/web_static/shared/':
+file { '/data/web_static/releases/test':
   ensure => 'directory',
 }
 
-file { '/data/web_static/releases/test/':
+file { '/data/web_static/shared/':
   ensure => 'directory',
 }
 
@@ -52,7 +52,7 @@ file { '/var/www/html':
   ensure => 'directory'
 }
 
-file { '/data/web_static/releases/test/index.html':
+file { '/var/www/html/index.html':
   ensure  => 'present',
   content => '<html>
   <head>
