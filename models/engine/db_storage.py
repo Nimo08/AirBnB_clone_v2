@@ -38,19 +38,16 @@ class DBStorage:
     def all(self, cls=None):
         """Query on the current database session"""
         from models.__init__ import storage
-        if cls is None:
-            classes = [User, State, City, Amenity, Place, Review]
-        else:
-            classes = {"User": User, "State": State, "City": City,
-                       "Amenity": Amenity, "Place": Place, "Review": Review}
+        classes = {"User": User, "State": State, "City": City,
+                   "Amenity": Amenity, "Place": Place, "Review": Review}
         result_dict = {}
-        if cls in classes:
-            class_model = classes[cls]
-            table_name = class_model.__tablename__
-            query = self.__session.query(class_model)
-            for obj in query.all():
-                key = f"{table_name}.{obj.id}"
-                result_dict[key] = obj
+        if cls is None:
+            for class_model in classes.values():
+                table_name = class_model.__tablename__
+                query = self.__session.query(class_model)
+                for obj in query.all():
+                    key = f"{table_name}.{obj.id}"
+                    result_dict[key] = obj
         else:
             print(f"Class {cls} not found in the mapping.")
         return result_dict
