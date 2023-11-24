@@ -18,14 +18,6 @@ from flask import Flask, render_template
 app = Flask(__name__)
 
 
-@app.teardown_appcontext
-def teardown_db(exception=None):
-    """
-    Remove current SQLAlchemy Session after each request
-    """
-    storage.close()
-
-
 @app.route("/states_list", strict_slashes=False)
 def states_list():
     """
@@ -34,6 +26,14 @@ def states_list():
     """
     states = storage.all(State).values()
     return render_template('7-states_list.html', states=states)
+
+
+@app.teardown_appcontext
+def teardown_db(exception=None):
+    """
+    Remove current SQLAlchemy Session after each request
+    """
+    storage.close()
 
 
 if __name__ == "__main__":
