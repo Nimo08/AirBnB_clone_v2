@@ -11,7 +11,7 @@ LI tag: description of one State: <state.id>: <B><state.name></B>
 """
 
 
-from flask import Flask, render_template
+from flask import Flask, render_template, teardown_appcontext
 from models import storage
 from models.state import State
 
@@ -19,7 +19,7 @@ app = Flask(__name__)
 
 
 @app.teardown_appcontext
-def teardown(exception=None):
+def teardown_db(exception=None):
     """
     Remove current SQLAlchemy Session after each request
     """
