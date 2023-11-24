@@ -48,6 +48,12 @@ class DBStorage:
                 for obj in query.all():
                     key = f"{table_name}.{obj.id}"
                     result_dict[key] = obj
+        elif cls in classes.values():
+            table_name = cls.__tablename__
+            query = self.__session.query(cls)
+            for obj in query.all():
+                key = f"{table_name}.{obj.id}"
+                result_dict[key] = obj
         else:
             print(f"Class {cls} not found in the mapping.")
         return result_dict
