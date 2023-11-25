@@ -21,7 +21,6 @@ You must use the option strict_slashes=False in your route definition
 
 
 from models import storage
-from models.state import State
 from flask import Flask, render_template
 
 
@@ -37,7 +36,7 @@ def teardown_db(exception=None):
 
 
 @app.route("/states", strict_slashes=False)
-def states_list():
+def states():
     """
     Display a HTML page with list of all state obj in dbstorage
     sorted by name
@@ -47,7 +46,7 @@ def states_list():
 
 
 @app.route("/states/<id>", strict_slashes=False)
-def states(id):
+def states_id(id):
     """
     Display a HTML page with list of all state obj in dbstorage
     sorted by name
