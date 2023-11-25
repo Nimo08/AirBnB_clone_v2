@@ -22,6 +22,7 @@ You must use the option strict_slashes=False in your route definition
 
 from models import storage
 from models.state import State
+from models.city import City
 from flask import Flask, render_template
 
 
@@ -44,7 +45,6 @@ def states_list():
     """
     states = storage.all(State).values()
     sorted_states = sorted(states, key=lambda x: x.name)
-    print(sorted_states)
     return render_template('9-states.html', states=sorted_states)
 
 
@@ -54,11 +54,9 @@ def states(id):
     Display a HTML page with list of all state obj in dbstorage
     sorted by name
     """
-    state = storage.get('State', 'id')
-    if state is None:
-        return render_template('9-states.html')
-    cities = state.cities.order_by('name')
-    return render_template('9-states.html', state=state, cities=cities)
+    states = storage.all(State)
+    state = states.get("State:{}".format(id))
+    return render_template('9-states.html', state=state)
 
 
 if __name__ == "__main__":
