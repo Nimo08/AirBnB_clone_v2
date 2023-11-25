@@ -20,9 +20,9 @@ You must use the option strict_slashes=False in your route definition
 """
 
 
-from flask import Flask, render_template
 from models import storage
 from models.state import State
+from flask import Flask, render_template
 
 
 app = Flask(__name__)
@@ -59,4 +59,4 @@ def states(id):
 
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=5000)
+    app.run(host='0.0.0.0')
