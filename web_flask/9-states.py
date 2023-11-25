@@ -41,7 +41,7 @@ def states():
     Display a HTML page with list of all state obj in dbstorage
     sorted by name
     """
-    states = storage.all("State")
+    states = storage.all(State)
     return render_template('9-states.html', states=states)
 
 
@@ -51,11 +51,11 @@ def states_id(id):
     Display a HTML page with list of all state obj in dbstorage
     sorted by name
     """
-    for state in storage.all("State").values():
+    for state in storage.all(State).values():
         if state.id == id:
             return render_template('9-states.html', state=state)
     return render_template('9-states.html')
 
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0')
+    app.run(host='0.0.0.0', port=5000)
