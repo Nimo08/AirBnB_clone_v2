@@ -87,4 +87,4 @@ class DBStorage:
         (self.__session)or close() on the class Session
         """
         self.reload()
-        self.__session.remove()
+        self.__session.close()
