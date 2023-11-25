@@ -56,7 +56,7 @@ def states(id):
     """
     states = storage.all(State)
     state = states.get("State.{}".format(id))
-    return render_template('9-states.html', states=states, flag=False)
+    return render_template('9-states.html', state=state, flag=False)
 
 
 if __name__ == "__main__":
