@@ -14,9 +14,10 @@ LI tag: description of one City: <city.id>: <B><city.name></B>
 """
 
 
-from flask import Flask, render_template
 from models import storage
 from models.state import State
+from flask import Flask, render_template
+
 
 app = Flask(__name__)
 
