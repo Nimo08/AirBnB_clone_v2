@@ -11,8 +11,9 @@ LI tag: description of one State: <state.id>: <B><state.name></B>
 """
 
 
-from models import storage
 from flask import Flask, render_template
+from models import storage
+from models.state import State
 
 
 app = Flask(__name__)
