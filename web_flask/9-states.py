@@ -20,8 +20,8 @@ You must use the option strict_slashes=False in your route definition
 """
 
 
-from models import storage
 from flask import Flask, render_template
+from models import storage
 
 
 app = Flask(__name__)
@@ -41,7 +41,7 @@ def states():
     Display a HTML page with list of all state obj in dbstorage
     sorted by name
     """
-    states = storage.all(State)
+    states = storage.all("State")
     return render_template('9-states.html', states=states)
 
 
@@ -51,7 +51,7 @@ def states_id(id):
     Display a HTML page with list of all state obj in dbstorage
     sorted by name
     """
-    for state in storage.all(State).values():
+    for state in storage.all("State").values():
         if state.id == id:
             return render_template('9-states.html', state=state)
     return render_template('9-states.html')
