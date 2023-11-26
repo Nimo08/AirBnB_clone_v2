@@ -43,7 +43,7 @@ def states():
     """
     states = storage.all("State").values()
     sorted_states = sorted(states, key=lambda x: x.name)
-    return render_template('9-states.html', states=sorted_states)
+    return render_template('9-states.html', state=sorted_states)
 
 
 @app.route("/states/<id>", strict_slashes=False)
